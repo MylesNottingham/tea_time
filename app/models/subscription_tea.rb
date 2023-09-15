@@ -1,4 +1,4 @@
 class SubscriptionTea < ApplicationRecord
-  belongs_to :subscriptions
-  belongs_to :teas
+  belongs_to :subscription
+  belongs_to :tea
 end

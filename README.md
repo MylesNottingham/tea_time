@@ -1,24 +1,151 @@
-# README
+# Tea Time
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Author
 
-Things you may want to cover:
+### Myles Nottingham
+#### [GitHub](https://github.com/MylesNottingham) | [LinkedIn](https://www.linkedin.com/in/mylesnottingham/)
 
-* Ruby version
+## Tech Stack
 
-* System dependencies
+**Server:**
+ - Ruby (language)
+ - Rails API (framework)
 
-* Configuration
+## Installation
 
-* Database creation
+### Prerequisites
+- Ensure Ruby is installed on your local machine
+- Bundler is used for managing Ruby gem dependencies
 
-* Database initialization
+### Clone the repository
+``` 
+git clone git@github.com:MylesNottingham/tea_time.git
+cd tea_time
+```
 
-* How to run the test suite
+```
+bundle install
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+### Database setup
+run ``` rails db:{create,migrate,seed} ``` <br>
 
-* Deployment instructions
+## Startup
+- Service is configured to startup locally using port 3000
+- Start service by running the command:
+``` rails s ```
 
-* ...
+## Testing
+- Run the test suite
+``` bundle exec rspec spec ``` <br>
+
+
+## API Reference
+
+### Get Subscriptions for a Customer
+GET '/api/v1/subscriptions'
+
+Request:
+```
+{
+  "customer_id": 1
+}
+```
+
+Response:
+```
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "subscription",
+      "attributes": {
+        "title": "White",
+        "price": 7,
+        "status": "active",
+        "frequency": "monthly"
+      }
+    },
+    {
+      "id": "2",
+      "type": "subscription",
+      "attributes": {
+        "title": "Green",
+        "price": 6,
+        "status": "cancelled",
+        "frequency": "quarterly"
+      }
+    },
+    {
+      "id": "3",
+      "type": "subscription",
+      "attributes": {
+        "title": "Black",
+        "price": 6,
+        "status": "cancelled",
+        "frequency": "semiannually"
+      }
+    }
+  ]
+}
+```
+
+### Subscribe a Customer to a Tea Subscription
+POST '/api/v1/subscriptions’
+
+Request:
+```
+{
+  "customer_id": 2,
+  "subscription_id": 1,
+  "frequency": 1
+}
+```
+
+*frequency is optional, defaults to 0* 
+<br>
+*( 0 = monthly, 1 = quarterly, 2 = semiannually, 3 = annually )*
+
+ Response:
+```
+{
+  "data": {
+    "id": "5",
+    "type": "subscription",
+    "attributes": {
+      "title": "White",
+      "price": 7,
+      "status": "active",
+      "frequency": "quarterly"
+    }
+  }
+}
+```
+
+### Cancel a Subscription
+PATCH '/api/v1/subscriptions/:id’
+
+Request:
+```
+id = 5
+
+{
+  "status": 1
+}
+```
+
+ Response:
+```
+{
+  "data": {
+    "id": "5",
+    "type": "subscription",
+    "attributes": {
+      "title": "White",
+      "price": 7,
+      "status": "cancelled",
+      "frequency": "quarterly"
+    }
+  }
+}
+```

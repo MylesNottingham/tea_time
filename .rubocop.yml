@@ -16,6 +16,8 @@ AllCops:
     - "./config/environments/*"
     - "./config/initializers/*"
 
+  SuggestExtensions: false
+
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes
@@ -36,4 +38,10 @@ Style/BlockComments:
   Enabled: false
 
 Layout/SpaceInsidePercentLiteralDelimiters:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/SymbolArray:
   Enabled: false

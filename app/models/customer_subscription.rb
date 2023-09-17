@@ -2,15 +2,13 @@ class CustomerSubscription < ApplicationRecord
   belongs_to :customer
   belongs_to :subscription
 
-  enum status: [:active, :cancelled]
-  enum frequency: [:monthly, :quarterly, :semiannually, :annually]
+  enum status: [:active, :cancelled], _default: :active
+  enum frequency: [:monthly, :quarterly, :semiannually, :annually], _default: :monthly
 
-  after_initialize :set_defaults
+  validates_presence_of :customer_id
+  validates_presence_of :subscription_id
+  validates_presence_of :status
+  validates_presence_of :frequency
 
-  private
-
-  def set_defaults
-    self.status ||= 0
-    self.frequency ||= 0
-  end
+  delegate :title, :price, to: :subscription
 end

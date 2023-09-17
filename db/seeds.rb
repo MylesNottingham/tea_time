@@ -58,7 +58,7 @@ subscription_ids = Subscription.all.pluck(:id)
 # Default customer subscription
 CustomerSubscription.create!(
   customer_id: Customer.first.id,
-  subscription_id: subscription_ids[0],
+  subscription_id: subscription_ids[0]
 )
 
 # Customer subscription with status 1 and frequency 1

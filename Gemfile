@@ -12,7 +12,7 @@ gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
-# Build JSON APIs with ease [https://github.com/rails/jbuilder]
+# JSON:API Serializer
 gem "jsonapi-serializer"
 
 # Use Redis adapter to run Action Cable in production
@@ -53,5 +53,6 @@ group :development do
 end
 
 group :test do
+  gem "shoulda-matchers"
   gem "simplecov"
 end

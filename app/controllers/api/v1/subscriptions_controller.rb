@@ -5,7 +5,7 @@ class Api::V1::SubscriptionsController < ApplicationController
     if Customer.exists?(params[:customer_id])
       render json: SubscriptionSerializer.new(subscriptions)
     else
-    render json: { errors: "Customer not found" }, status: :not_found
+      render json: { errors: "Customer not found" }, status: :not_found
     end
   end
 

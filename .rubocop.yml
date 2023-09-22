@@ -45,3 +45,15 @@ Style/ClassAndModuleChildren:
 
 Style/SymbolArray:
   Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: false
+
+Style/RedundantBegin:
+  Enabled: false

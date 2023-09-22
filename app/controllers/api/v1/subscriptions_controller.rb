@@ -1,4 +1,14 @@
 class Api::V1::SubscriptionsController < ApplicationController
+  def index
+    subscriptions = CustomerSubscription.where(customer_id: params[:customer_id])
+
+    if Customer.exists?(params[:customer_id])
+      render json: SubscriptionSerializer.new(subscriptions)
+    else
+    render json: { errors: "Customer not found" }, status: :not_found
+    end
+  end
+
   def create
     subscription = CustomerSubscription.new(
       customer_id: params[:customer_id],
@@ -14,18 +24,14 @@ class Api::V1::SubscriptionsController < ApplicationController
   end
 
   def update
-    subscription = CustomerSubscription.find(params[:id])
-
-    if subscription.update(status: params[:status].to_i)
+    begin
+      subscription = CustomerSubscription.find(params[:id])
+      subscription.update!(status: params[:status].to_i)
       render json: SubscriptionSerializer.new(subscription)
-    else
-      render json: { errors: subscription.errors.full_messages }, status: :unprocessable_entity
+    rescue ArgumentError
+      render json: { errors: "Invalid status" }, status: :unprocessable_entity
+    rescue ActiveRecord::RecordNotFound
+      render json: { errors: "Subscription not found" }, status: :not_found
     end
-  end
-
-  def index
-    subscriptions = CustomerSubscription.where(customer_id: params[:customer_id])
-
-    render json: SubscriptionSerializer.new(subscriptions)
   end
 end

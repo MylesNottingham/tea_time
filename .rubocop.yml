@@ -54,3 +54,6 @@ Metrics/BlockLength:
 
 Style/HashSyntax:
   Enabled: false
+
+Style/RedundantBegin:
+  Enabled: false

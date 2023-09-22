@@ -98,11 +98,12 @@ RSpec.describe "Api::V1::Subscriptions", type: :request do
           expect(subscription[:attributes][:price]).to be_an(Integer)
 
           expect(subscription[:attributes]).to have_key(:status)
-          expect(subscription[:attributes][:status]).to satisfy { |status| ["active", "cancelled"].include?(status) }
-
+          expect(subscription[:attributes][:status]).to(satisfy { |status| ["active", "cancelled"].include?(status) })
 
           expect(subscription[:attributes]).to have_key(:frequency)
-          expect(subscription[:attributes][:frequency]).to satisfy { |frequency| ["monthly", "quarterly", "semiannually", "annually"].include?(frequency) }
+          expect(subscription[:attributes][:frequency]).to(
+            satisfy { |frequency| ["monthly", "quarterly", "semiannually", "annually"].include?(frequency) }
+          )
         end
       end
 
@@ -156,7 +157,7 @@ RSpec.describe "Api::V1::Subscriptions", type: :request do
 
         post api_v1_subscriptions_path, params: {
           customer_id: customer_id,
-          subscription_id: subscription_id,
+          subscription_id: subscription_id
         }
 
         expect(response).to have_http_status(:created)
